@@ -102,12 +102,13 @@ document.getElementById('btn-apply').addEventListener('click', function(){
 
 document.getElementById('btn-purchase').addEventListener('click', function(){
     document.getElementById('btn-purchase').setAttribute('disabled', true);
+    let priceCounter = document.getElementById('after-discount').innerText;
     document.getElementById('total-price').innerText = 0;
     document.getElementById('discount-price').innerText = 0;
     document.getElementById('after-discount').innerText = 0;
     const p = document.createElement('p');
     const hr = document.createElement('hr');
-    p.innerText = 'PAID';
+    p.innerText ='Total cost: '+ priceCounter + 'TK (PAID)';
     p.style.fontWeight = 'bold';
     p.style.textAlign = 'center';
     document.getElementById('make-list').appendChild(hr);
