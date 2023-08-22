@@ -105,4 +105,12 @@ document.getElementById('btn-purchase').addEventListener('click', function(){
     document.getElementById('total-price').innerText = 0;
     document.getElementById('discount-price').innerText = 0;
     document.getElementById('after-discount').innerText = 0;
+    const p = document.createElement('p');
+    const hr = document.createElement('hr');
+    p.innerText = 'PAID';
+    p.style.fontWeight = 'bold';
+    p.style.textAlign = 'center';
+    document.getElementById('make-list').appendChild(hr);
+    document.getElementById('make-list').appendChild(p);
 });
+
