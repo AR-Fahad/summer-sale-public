@@ -88,12 +88,21 @@ document.getElementById('input-field').addEventListener('keyup', function(up){
 
 document.getElementById('btn-apply').addEventListener('click', function(){
     let total = parseFloat(document.getElementById('total-price').innerText);
-    let discount = (total*20)/100;
-    let afterDiscount = total - discount;
-    discount = discount.toFixed(2);
-    afterDiscount = afterDiscount.toFixed(2);
-    document.getElementById('discount-price').innerText = discount;
-    document.getElementById('after-discount').innerText = afterDiscount;
+    if(total >= 200){
+        let discount = (total*20)/100;
+        let afterDiscount = total - discount;
+        discount = discount.toFixed(2);
+        afterDiscount = afterDiscount.toFixed(2);
+        document.getElementById('discount-price').innerText = discount;
+        document.getElementById('after-discount').innerText = afterDiscount;
+    }
     document.getElementById('input-field').value = '';
     document.getElementById('btn-apply').setAttribute('disabled', true);
+});
+
+document.getElementById('btn-purchase').addEventListener('click', function(){
+    document.getElementById('btn-purchase').setAttribute('disabled', true);
+    document.getElementById('total-price').innerText = 0;
+    document.getElementById('discount-price').innerText = 0;
+    document.getElementById('after-discount').innerText = 0;
 });
