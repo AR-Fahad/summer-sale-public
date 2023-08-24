@@ -10,6 +10,8 @@ function fixedInnerText(listMaker){
     li.innerText = listMaker;
     ol.appendChild(li);
 }
+
+let forApply = 0;
 function totalPriceCount(price, innerTextTotal){
     const p = getElementInnerText(price);
     const inTT = getElementInnerText(innerTextTotal);
@@ -23,6 +25,10 @@ function totalPriceCount(price, innerTextTotal){
     dis = dis.toFixed(2);
     document.getElementById('after-discount').innerText = (T-dis).toFixed(2);
     document.getElementById('btn-purchase').removeAttribute('disabled');
+    forApply = forApply + P;
+    if(forApply>=200){
+        document.getElementById('btn-apply').removeAttribute('disabled');
+    }
 }
 
 // sportsWear
@@ -76,42 +82,30 @@ function cookerClick(){
     totalPriceCount('cooker-price', 'total-price');
 }
 
-document.getElementById('input-field').addEventListener('keyup', function(up){
-    const keyupValue = up.target.value;
-    if(keyupValue === 'SELL200'){
-        document.getElementById('btn-apply').removeAttribute('disabled');
-    }
-    else{
-        document.getElementById('btn-apply').setAttribute('disabled', true);
-    }
-});
 
 document.getElementById('btn-apply').addEventListener('click', function(){
     let total = parseFloat(document.getElementById('total-price').innerText);
-    if(total >= 200){
+    if(document.getElementById('input-field').value === 'SELL200'){
         let discount = (total*20)/100;
         let afterDiscount = total - discount;
         discount = discount.toFixed(2);
         afterDiscount = afterDiscount.toFixed(2);
         document.getElementById('discount-price').innerText = discount;
         document.getElementById('after-discount').innerText = afterDiscount;
+        forApply = 0;
+        document.getElementById('input-field').value = '';
+        document.getElementById('btn-apply').setAttribute('disabled', true);
     }
-    document.getElementById('input-field').value = '';
-    document.getElementById('btn-apply').setAttribute('disabled', true);
 });
 
 document.getElementById('btn-purchase').addEventListener('click', function(){
     document.getElementById('btn-purchase').setAttribute('disabled', true);
-    let priceCounter = document.getElementById('after-discount').innerText;
+});
+
+document.getElementById('btn-go').addEventListener('click', function(){
     document.getElementById('total-price').innerText = 0;
     document.getElementById('discount-price').innerText = 0;
     document.getElementById('after-discount').innerText = 0;
-    const p = document.createElement('p');
-    const hr = document.createElement('hr');
-    p.innerText ='Total cost: '+ priceCounter + 'TK (PAID)';
-    p.style.fontWeight = 'bold';
-    p.style.textAlign = 'center';
-    document.getElementById('make-list').appendChild(hr);
-    document.getElementById('make-list').appendChild(p);
+    document.getElementById('make-list').innerHTML = '';
 });
 
